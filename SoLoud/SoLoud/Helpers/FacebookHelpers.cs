@@ -175,7 +175,7 @@ namespace Facebook
             return PhotoResponses;
         }
 
-        public async Task<FacebookPostRespnse> MultiphotoStory(List<SoLoud.Models.File> images, string Message)
+        public async Task<FacebookPostRespnse> MultiphotoStory(List<SoLoud.Models.File> images, string Message, string PlaceId)
         {
             FacebookPhotoResponse[] PhotoResponses = await UploadUserPhotos(images, false);
 
@@ -183,6 +183,7 @@ namespace Facebook
 
             req.AddParameter("message", Message);
             req.AddParameter("access_token", AccessToken);
+            req.AddParameter("place", PlaceId);
 
             for (int i = 0; i < PhotoResponses.Length; i++)
                 if (!String.IsNullOrWhiteSpace(PhotoResponses[i].id))

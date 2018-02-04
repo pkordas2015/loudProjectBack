@@ -44,7 +44,7 @@ namespace SoLoud.Controllers
         public GetViewModel Get()
         {
             var user = UserManager.FindById(User.Identity.GetUserId());
-            return new GetViewModel() { Hometown = user.Hometown };
+            return new GetViewModel() { Hometown = user.Hometown, TotalPoints = user.TotalPoints, Likes = user.Likes, Comments = user.Comments, Shares = user.Shares  };
         }
     }
 }

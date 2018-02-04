@@ -69,11 +69,12 @@ namespace SoLoud.ApiControllers
             post.ContestId = parser.Parameters["ContestId"];
             post.HashTags = parser.Parameters["Hashtags"];
             post.Id = Guid.NewGuid().ToString();
-            post.IsVerified = false;
+            post.PostStatus = PostStatus.Pending;
             post.Photos = parser.Files.Select(x => x.Value).ToList();
            
             post.SocialMedium = SocialMedia.Facebook;
             post.Text = parser.Parameters["caption"];
+            post.PlaceId = parser.Parameters["PlaceId"];
             post.UserId = UserId;
 
             ModelState.Clear();
@@ -123,7 +124,7 @@ namespace SoLoud.ApiControllers
             Post post = db.Posts.FirstOrDefault(x => x.Id == PostId);
             if (post == null)
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound) { Content = new StringContent("No Post with such id") });
-            else if (post.IsVerified)
+            else if (post.PostStatus.Equals(PostStatus.Verified))
                 throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.BadRequest) { Content = new StringContent("Post already verified") });
 
             var user = db.Users.Include("Claims").FirstOrDefault(x => x.Id == post.UserId);
@@ -139,10 +140,11 @@ namespace SoLoud.ApiControllers
 
             var fbClient = new FbClient(DecryptedFbToken);
 
-            var fbResponse = await fbClient.MultiphotoStory(post.Photos.ToList(), post.Text);
+            var fbResponse = await fbClient.MultiphotoStory(post.Photos.ToList(), post.Text, post.PlaceId);
 
             post.VerifiedAt = DateTimeOffset.Now;
-            post.IsVerified = true;
+            //post.IsVerified = true;
+            post.PostStatus = PostStatus.Verified;
             post.FacebookId = fbResponse.id;
             db.SaveChanges();
         }

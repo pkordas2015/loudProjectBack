@@ -195,3 +195,5 @@ $RECYCLE.BIN/
 *.pdb
 *.cache
 ngrok.exe
+/SoLoud/SoLoud/Properties/PublishProfiles/soloud - FTP (2).pubxml
+/SoLoud/SoLoud/Properties/PublishProfiles/soloud - Web Deploy (2).pubxml

@@ -22,7 +22,7 @@ namespace SoLoud.Repositories
             var newPost = new Post()
             {
                 Id = Guid.NewGuid().ToString(),
-                IsVerified = false,
+                PostStatus = PostStatus.Pending,
                 Text = text,
                 UserId = UserId,
                 SocialMedium = SocialMedia.Facebook
@@ -35,7 +35,7 @@ namespace SoLoud.Repositories
         }
         private void Add(Post Post)
         {
-            Post.IsVerified = false;
+            Post.PostStatus = PostStatus.Pending;
             Post.Id = Guid.NewGuid().ToString();
             Post.UserId = UserId;
 

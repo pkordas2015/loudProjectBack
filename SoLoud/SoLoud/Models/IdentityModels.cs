@@ -15,6 +15,14 @@ namespace SoLoud.Models
 
         public virtual ICollection<Post> Posts { get; set; }
 
+        public int TotalPoints { get; set; }
+
+        public int Likes { get; set; }
+
+        public int Comments { get; set; }
+
+        public int Shares { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

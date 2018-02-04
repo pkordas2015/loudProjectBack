@@ -19,7 +19,7 @@ namespace SoLoud.Models
         }
 
         public string Text { get; set; }
-        public bool IsVerified { get; set; }
+        //public bool IsVerified { get; set; }
 
         public DateTimeOffset CreatedAt { get; private set; }
 
@@ -33,5 +33,18 @@ namespace SoLoud.Models
         public virtual Contest Contest { get; set; }
 
         public string FacebookId { get; set; }
+
+        public string PlaceId { get; set; }
+
+        public PostStatus PostStatus { get; set; }
+
+        public String RejectionComments { get; set; }
+    }
+
+    public enum PostStatus
+    {
+        Pending = 0,
+        Verified = 1,
+        Rejected = 2
     }
 }
